@@ -20,7 +20,7 @@ def total(func, *pargs, **kargs):
     for i in repslist:
         ret = func(*pargs, **kargs)
     elapsed = timer() - start
-    return elapsed
+    return (elapsed, ret)
 
 
 def bestof(func, *pargs, **kargs):
@@ -35,5 +35,5 @@ def bestof(func, *pargs, **kargs):
 
 
 def bestoftotal(func, *pargs, **kargs):
-    _reps1 = kargs.pop('_reps', 5)
+    _reps1 = kargs.pop('_reps1', 5)
     return min(total(func, *pargs, **kargs) for i in range(_reps1))

@@ -19,9 +19,9 @@ def min3(*args):
     return tmp[0]
 
 
-print(min1(3, 4, 1, 2))
-print(min2("bb", "aa"))
-print(min3([2, 2], [1, 1], [3, 3]))
+# print(min1(3, 4, 1, 2))
+# print(min2("bb", "aa"))
+# print(min3([2, 2], [1, 1], [3, 3]))
 
 
 def minmax(test, *args):
@@ -38,5 +38,5 @@ def lessthan(x, у): return x < у
 def grtrthan(x, y): return x > y
 
 
-print(minmax(lessthan, 4, 2, 1, 5, 6, 3))
-print(minmax(grtrthan, 4, 2, 1, 5, 6, 3))
+# print(minmax(lessthan, 4, 2, 1, 5, 6, 3))
+# print(minmax(grtrthan, 4, 2, 1, 5, 6, 3))

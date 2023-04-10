@@ -29,7 +29,39 @@ import sys, os, timeit
 
 defnum, defrep = 1000, 5
 
+
 def runner(stmts, pythons=None, tracecmd=False):
     """
-
+    Основная логика: запускать тесты на входных списках,режимами использования
+    управляет вызывающий код.
+    stmts: [(количество?, повторений?, строка-оператора)], заменяет $listif3
+    в строке оператора
+    pythons: None = только эта версия Python или [(версия-Python-3?,
+    путь-к-исполняемому-файлу-Python
     """
+
+    print(sys.version)
+    for (number, repeat, stmt) in stmts:
+        number = number or defnum
+        repeat = repeat or defrep  # 0 - стандартное значение
+        if not pythons:
+            # Запустить оператор stmt в этой версии Python: вызов API-интерфейса
+            # Нет необходимости разделять строки или помещать в кавычки
+            ispy3 = sys.version[0] == '3'
+            stmt = stmt.replace('$listif3', 'list' if ispy3 else '')
+            best = min(timeit.repeat(stmt=stmt, number=number, repeat=repeat))
+            print('%.4f [%r]' % (best, stmt[:70]))
+        else:
+            # Запустить оператор stmt во всех версиях Python: командная строка
+            # Разделить строки на аргументы в кавычках
+            print('-' * 80)
+            print('[%r' % stmt)
+            for (ispy3, python) in pythons:
+                stmt1 = stmt.replace('$listif3', 'list' if ispy3 else '')
+                stmt1 = stmt1.replace('\t', ' ' * 4)
+                lines = stmt1.split('\n')
+                args = ' '.join('"%s"' % line for line in lines)
+                cmd = '%s -m timeit -n %s -r %s %s' % (python, number, repeat, args)
+                print(python)
+                if tracecmd: print(cmd)
+                print('\t' + os.popen(cmd).read().rstrip())

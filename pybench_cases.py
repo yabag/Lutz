@@ -9,9 +9,9 @@ C:\python27\python pybench_cases.py, чтобы протестировать т�
 """
 import pybench, sys
 pythons = [
-    (1, '\\usr\\bin\\python3'),
-    (0, '\\usr\\bin\\python27'),
-    (0, '\\usr\\bin\\pypy')
+    (1, '/usr/bin/python3'),
+    (0, '/usr/bin/python2.7'),
+    (0, '/usr/bin/pypy')
 ]
 
 stmts = [
